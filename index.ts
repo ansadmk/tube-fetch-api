@@ -47,7 +47,7 @@ app.get('/yt360', async (req :any, res:any) => {
                 });
             } else {
                 // Optionally, you can remove the file after downloading
-                fs.unlinkSync('ansad.mp4');
+                fs.unlinkSync(info.videoDetails.videoId+".mp4");
                 console.log('File downloaded successfully');
                 res.json({
                     formats:info.videoDetails.formats
@@ -85,7 +85,7 @@ app.get('/yt480', async (req :any, res:any) => {
                 });
             } else {
                 // Optionally, you can remove the file after downloading
-                fs.unlinkSync('ansad.mp4');
+                fs.unlinkSync(info.videoDetails.videoId+".mp4");
                 console.log('File downloaded successfully');
                 res.json({
                     formats:info.videoDetails.formats
@@ -123,7 +123,7 @@ app.get('/yt720', async (req :any, res:any) => {
                 });
             } else {
                 // Optionally, you can remove the file after downloading
-                fs.unlinkSync('ansad.mp4');
+                fs.unlinkSync(info.videoDetails.videoId+".mp4");
                 console.log('File downloaded successfully');
                 res.json({
                     formats:info.videoDetails.formats
@@ -161,7 +161,7 @@ app.get('/yt1080', async (req :any, res:any) => {
                 });
             } else {
                 // Optionally, you can remove the file after downloading
-                fs.unlinkSync('ansad.mp4');
+                fs.unlinkSync(info.videoDetails.videoId+".mp4");
                 console.log('File downloaded successfully');
                 res.json({
                     formats:info.videoDetails.formats
