@@ -1,11 +1,12 @@
 const express=require('express')
+require('dotenv').config()
 const app=express()
 const cors=require('cors')
 const fs = require('fs');
 const ytdl = require('ytdl-core');
 app.use(cors())
 app.use(express.json())
-const port=8080
+const port=process.env.PORT || 8080
 app.post('/fbandinsta',async (req:any,res:any)=>{
     const {url}=req.body
     let URL = ""
