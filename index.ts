@@ -25,7 +25,7 @@ app.post('/fbandinsta',async (req:any,res:any)=>{
 //     })
     
 // });
-app.get('/yt',async (req:any,res:any)=>{
+app.get('/yt/:url',async (req:any,res:any)=>{
     const { url } = req.params;
     const videoId=ytdl.getVideoID(url)
     const info = await ytdl.getInfo(videoId);
