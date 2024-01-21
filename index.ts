@@ -42,36 +42,44 @@ app.get('/ytdown', async (req :any, res:any) => {
 
     const info = await ytdl.getInfo(videoId);
     const videoStream = ytdl(decodeURIComponent(url),{ filter: (format:any) => format.qualityLabel === quality });
-    const fileStream = fs.createWriteStream(videoId+".mp4");
-    
-    videoStream.pipe(fileStream);
-
-    fileStream.on('finish', () => {
-        // The ytdl and file write operations are complete
-        res.download(videoId+".mp4", info.videoDetails.title+".mp4", (err:any) => {
-            if (err) {
-                console.error(err);
-                res.status(500).json({
-                    status: 'error',
-                    error: 'Failed to download the file',
-                });
-            } else {
-                // Optionally, you can remove the file after downloading
-                fs.unlinkSync(info.videoDetails.videoId+".mp4");
-                console.log('File downloaded successfully');
-                
-            }
-        });
+ 
+        console.log(info);
+        res.setHeader('Content-Type', 'video/mp4'); // Corrected MIME type for MP4 videos
+        res.setHeader('Content-Disposition', `attachment; filename="${info.videoDetails.title}.mp4"`); // Dynamic filename
+        console.log(res);
         
-    });
+        videoStream.pipe(res);
+     
+    // const fileStream = fs.createWriteStream(videoId+".mp4");
+    
+    // videoStream.pipe(fileStream);
 
-    fileStream.on('error', (err:any) => {
-        console.error(err);
-        res.status(500).json({
-            status: 'error',
-            error: 'Failed to write the file',
-        });
-    });
+    // fileStream.on('finish', () => {
+    //     // The ytdl and file write operations are complete
+    //     res.download(videoId+".mp4", info.videoDetails.title+".mp4", (err:any) => {
+    //         if (err) {
+    //             console.error(err);
+    //             res.status(500).json({
+    //                 status: 'error',
+    //                 error: 'Failed to download the file',
+    //             });
+    //         } else {
+    //             // Optionally, you can remove the file after downloading
+    //             fs.unlinkSync(info.videoDetails.videoId+".mp4");
+    //             console.log('File downloaded successfully');
+                
+    //         }
+    //     });
+        
+    // });
+
+    // fileStream.on('error', (err:any) => {
+    //     console.error(err);
+    //     res.status(500).json({
+    //         status: 'error',
+    //         error: 'Failed to write the file',
+    //     });
+    // });
     
 });
 app.post('/tk',async (req:any,res:any)=>{
