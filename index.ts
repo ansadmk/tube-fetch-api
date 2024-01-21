@@ -25,9 +25,9 @@ app.post('/fbandinsta',async (req:any,res:any)=>{
 //     })
     
 // });
-app.get('/yt/:url',async (req:any,res:any)=>{
-    const { url } = req.params;
-    const videoId=ytdl.getVideoID(url)
+app.get('/yt',async (req:any,res:any)=>{
+    const { url } = req.query;
+    const videoId=ytdl.getVideoID(decodeURIComponent(url))
     const info = await ytdl.getInfo(videoId);
     console.log(info);
     
@@ -38,10 +38,10 @@ app.get('/yt/:url',async (req:any,res:any)=>{
 })
 app.get('/ytdown', async (req :any, res:any) => {
     const { url,quality } = req.query;
-    const videoId=ytdl.getVideoID(url)
+    const videoId=ytdl.getVideoID(decodeURIComponent(url))
 
     const info = await ytdl.getInfo(videoId);
-    const videoStream = ytdl(url,{ filter: (format:any) => format.qualityLabel === quality });
+    const videoStream = ytdl(decodeURIComponent(url),{ filter: (format:any) => format.qualityLabel === quality });
     const fileStream = fs.createWriteStream(videoId+".mp4");
     
     videoStream.pipe(fileStream);
