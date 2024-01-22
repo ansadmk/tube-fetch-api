@@ -47,7 +47,7 @@ app.get('/ytdown', async (req , res) => {
        
         res.setHeader('Content-Type', detailedinfo.mimeType.split(';')[0]); // Corrected MIME type for MP4 videos
         // console.log(]); 
-        res.setHeader('Content-Disposition', `attachment; filename="video"`); // Dynamic filename
+        res.setHeader('Content-Disposition', `attachment; filename="video.${detailedinfo.container}"`); // Dynamic filename
         
         videoStream.pipe(res);
      
