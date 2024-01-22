@@ -36,19 +36,18 @@ app.get('/yt',async (req,res)=>{
     })
 })
 app.get('/ytdown', async (req , res) => {
-    const { url,quality } = req.query;
+    const { url,itag } = req.query;
     const videoId=ytdl.getVideoID(decodeURIComponent(url))
 
     const info = await ytdl.getInfo(videoId);
+    const detailedinfo=info.formats.filter((i)=>i.itag==itag)[0]
+    const videoStream = ytdl(decodeURIComponent(url),{ filter: (format) => format.itag == itag });
     
-    
-    const videoStream = ytdl(decodeURIComponent(url),{ filter: (format) => format.qualityLabel === quality });
-  
    
        
-        res.setHeader('Content-Type', 'video/mp4'); // Corrected MIME type for MP4 videos
-        res.setHeader('Content-Disposition', `attachment; filename="${info.videoDetails.title}.mp4"`); // Dynamic filename
-        
+        res.setHeader('Content-Type', detailedinfo.mimeType.split(';')[0]); // Corrected MIME type for MP4 videos
+        // console.log(]); 
+        res.setHeader('Content-Disposition', `attachment; filename="video"`); // Dynamic filename
         
         videoStream.pipe(res);
      
