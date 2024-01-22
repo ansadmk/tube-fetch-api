@@ -43,7 +43,7 @@ app.get('/ytdown', async (req , res) => {
     
     
     const videoStream = ytdl(decodeURIComponent(url),{ filter: (format) => format.qualityLabel === quality });
-   console.log(videoStream);
+  
    
        
         res.setHeader('Content-Type', 'video/mp4'); // Corrected MIME type for MP4 videos
