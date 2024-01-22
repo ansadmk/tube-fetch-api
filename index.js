@@ -7,7 +7,7 @@ const ytdl = require('ytdl-core');
 app.use(cors())
 app.use(express.json())
 const port=process.env.PORT || 8080
-app.post('/fbandinsta',async (req:any,res:any)=>{
+app.post('/fbandinsta',async (req,res)=>{
     const {url}=req.body
     let URL = ""
     res.json({
@@ -15,7 +15,7 @@ app.post('/fbandinsta',async (req:any,res:any)=>{
         downloadUrl:URL
     })
 })
-// app.get('/yt', async (req :any, res:any) => {
+// app.get('/yt', async (req , res) => {
 //     const { url } = req.query;
 //     let info = await ytdl.getInfo(url);
 //     let format = ytdl.chooseFormat(info.formats, { quality: '134' });
@@ -25,7 +25,7 @@ app.post('/fbandinsta',async (req:any,res:any)=>{
 //     })
     
 // });
-app.get('/yt',async (req:any,res:any)=>{
+app.get('/yt',async (req,res)=>{
     const { url } = req.query;
     const videoId=ytdl.getVideoID(decodeURIComponent(url))
     const info = await ytdl.getInfo(videoId);
@@ -35,14 +35,14 @@ app.get('/yt',async (req:any,res:any)=>{
         formats:info.formats
     })
 })
-app.get('/ytdown', async (req :any, res:any) => {
+app.get('/ytdown', async (req , res) => {
     const { url,quality } = req.query;
     const videoId=ytdl.getVideoID(decodeURIComponent(url))
 
     const info = await ytdl.getInfo(videoId);
     
     
-    const videoStream = ytdl(decodeURIComponent(url),{ filter: (format:any) => format.qualityLabel === quality });
+    const videoStream = ytdl(decodeURIComponent(url),{ filter: (format) => format.qualityLabel === quality });
    console.log(videoStream);
    
        
@@ -58,7 +58,7 @@ app.get('/ytdown', async (req :any, res:any) => {
 
     // fileStream.on('finish', () => {
     //     // The ytdl and file write operations are complete
-    //     res.download(videoId+".mp4", info.videoDetails.title+".mp4", (err:any) => {
+    //     res.download(videoId+".mp4", info.videoDetails.title+".mp4", (err) => {
     //         if (err) {
     //             console.error(err);
     //             res.status(500).json({
@@ -75,7 +75,7 @@ app.get('/ytdown', async (req :any, res:any) => {
         
     // });
 
-    // fileStream.on('error', (err:any) => {
+    // fileStream.on('error', (err) => {
     //     console.error(err);
     //     res.status(500).json({
     //         status: 'error',
@@ -84,7 +84,7 @@ app.get('/ytdown', async (req :any, res:any) => {
     // });
     
 });
-app.post('/tk',async (req:any,res:any)=>{
+app.post('/tk',async (req,res)=>{
     const {url}=req.body
     let URL = ""
     res.json({
@@ -92,7 +92,7 @@ app.post('/tk',async (req:any,res:any)=>{
         downloadUrl:URL
     })
 })
-app.post('/tw',async (req:any,res:any)=>{
+app.post('/tw',async (req,res)=>{
     const {url}=req.body
     let URL = ""
     res.json({
